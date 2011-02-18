@@ -1,6 +1,9 @@
 <?php
 
 class CompositorClass extends Node{
+
+	/* Define the internal variable array. */
+	protected $_variableArray = array( );
 	
 	/* Define the internal function array. */
 	protected $_functionArray = array( );
@@ -59,6 +62,33 @@ class CompositorClass extends Node{
 
 		/* Replace the this->_connectoArray with the temporary one built above. */
 		$this->_connectorArray	= $tmpConnectorArray;
+	}
+	
+	/* Allow the addition of class wide variables. */
+	public function addVariable( Safe $varType = null, Safe $varName, Safe $varDefault = null ){
+		
+		/* Define a temporary array.. */
+		$temporaryVariableArray	= array( );
+
+		/* If the variable type is set, make sure it doesn't pass the Safe class into the array. */
+		if( $varType !== null ){
+			$varType	= $varType->toString();
+		}
+
+		/* Likewise the save with the default variable, if set. */
+		if( $varDefault !== null ){
+			$varDefault	= $varDefault->toString();
+		}
+
+		/* Fill the temporary array. */
+		$temporaryVariableArray['varName']	= $varName->toString();
+		$temporaryVariableArray['varType']	= $varType;
+		$temporaryVariableArray['varDefault']	= $varDefault;
+
+		/* Check to make sure the variable doesn't already exist. Throw an error if it does. */
+		if( in_array( $temporaryVariableArray, $this->_variableArray ) ){
+			throw new Exception( "That variable is already defined in this array." );
+		}
 	}
 
 	public function makeClass( ){
