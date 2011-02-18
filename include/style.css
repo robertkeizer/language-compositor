@@ -1,0 +1,19 @@
+body {
+	font-family: Arial, Verdana;
+	font-size: 120%;
+}
+A:link {
+	text-decoration: none;
+}
+#text {
+	float: right;
+	width: 30%;
+	padding: 5px;
+}
+#compositor {
+	border: 1px solid #000000;
+	background-color: #eeeeee;
+	float: left;
+	width: 67%;
+	height: 100%;
+}
