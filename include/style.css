@@ -26,4 +26,9 @@ A:link {
 	border: 1px solid #000000;
 	background-color: #cccccc;
 	padding: 5px;
+	margin-bottom: 5px;
+}
+#accordion .option {
+	padding-left: 20px;
+	font-size: 90%;
 }

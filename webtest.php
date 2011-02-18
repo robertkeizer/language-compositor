@@ -21,6 +21,13 @@ include './config.php';
 				$('#accordion').children( ).children( ).each( function( child ){
 					$(this).corner( );
 				} );
+				// Apply the mouseover feature of the hand for clickable accordion elements.
+				$('#accordion .accordion_head').mouseover( function( ){
+					$(this).css( 'cursor', 'pointer' );
+				} );
+				$('#accordion .option').mouseover( function( ){
+					$(this).css( 'cursor', 'pointer' );
+				} );
 			} );
 		</script>
 	</head>
@@ -36,16 +43,22 @@ include './config.php';
 						<div>
 							<div class='accordion_head'>Nodes</div>
 							<div>
-								PHP Class<br />
-								PHP Function
+								<span class='option'>Add a Class Node</span><br />
+								<span class='option'>Add a Function Node</span><br />
 							</div>
 						</div>
 						<div>
-							<div class='accordion_head'>Editing</div>
+							<div class='accordion_head'>Connectors</div>
 							<div>
-								Remove node<br />
-								Connector<br />
-								Remove Connector
+								<span class='option'>Connector</span><br />
+								<span class='option'>Remove Connector</span>
+							</div>
+						</div>
+						<div>
+							<div class='accordion_head'>Options</div>
+							<div>
+								<span class='option'>Specify programming language</span><br />
+								<span class='option'>Save current diagram</span>
 							</div>
 						</div>
 					</div>
