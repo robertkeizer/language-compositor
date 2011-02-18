@@ -153,6 +153,10 @@ class FunctionNode extends Node{
 		$this->_hash	= md5( $runningHash );
 	}
 
+	public function getHash( ){
+		return $this->_hash;
+	}
+
 	/* Display a nice output of what the code will be.. */
 	public function makeFunction( ){
 		/* This is the abstract function.. although not actually abstract. Do not do anything language specific. */
