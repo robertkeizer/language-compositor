@@ -17,3 +17,13 @@ A:link {
 	width: 67%;
 	height: 100%;
 }
+#accordion {
+	border: 1px solid #cccccc;
+	background-color: #eeeeee;
+	padding: 5px;
+}
+#accordion .accordion_head {
+	border: 1px solid #000000;
+	background-color: #cccccc;
+	padding: 5px;
+}
