@@ -18,7 +18,7 @@ include './config.php';
 	<body>
 		<div class='main'>
 			<div id='text'>
-				<p>This is language-compositor. Code can be found <a href='http://github.com/robertkeizer/language-compositor'>here</a>. A readme is available <a href='http://github.com/robertkeizer/language-compositor/README'>here</a>.</p>
+				<p>This is language-compositor. Code can be found <a href='http://github.com/robertkeizer/language-compositor'>here</a>. A readme is available <a href='http://github.com/robertkeizer/language-compositor/blob/master/README'>here</a>.</p>
 			</div>
 			<div id='compositor'>
 				You do not appear to have javascript enabled. Please enable it to utilize language-compositor.
