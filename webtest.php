@@ -15,7 +15,7 @@ include './config.php';
 				// Set the compositor HTML to be null, since otherwise it displays an error message about javascript.
 				$('#compositor').html( "" );
 				// Setup the accordion inside the right hand text block.
-				$('#accordion').accordion({ header: "div.accordion_head" });
+				$('#accordion').accordion({ header: "div.accordion_head", autoHeight: false });
 				// Round the corner of the accordion, and all the children in it.
 				$('#accordion').corner( );
 				$('#accordion').children( ).children( ).each( function( child ){
@@ -28,6 +28,8 @@ include './config.php';
 				$('#accordion .option').mouseover( function( ){
 					$(this).css( 'cursor', 'pointer' );
 				} );
+				// Round the current status block
+				$('#current_status').corner( );
 			} );
 		</script>
 	</head>
@@ -50,17 +52,36 @@ include './config.php';
 						<div>
 							<div class='accordion_head'>Connectors</div>
 							<div>
-								<span class='option'>Connector</span><br />
-								<span class='option'>Remove Connector</span>
+								<span class='option'>Add a connector</span><br />
+								<span class='option'>Remove all connectors</span>
 							</div>
 						</div>
 						<div>
 							<div class='accordion_head'>Options</div>
 							<div>
-								<span class='option'>Specify programming language</span><br />
-								<span class='option'>Save current diagram</span>
+								<div class='option'>Save current diagram</div>
+								<div class='option'>Load a saved diagram</div>
 							</div>
 						</div>
+						<div>
+							<div class='accordion_head'>Generate Code</div>
+							<div>
+								<div class='option'>Specify programming langauge</div>
+								<div class='option'>Generate code</div>
+							</div>
+						</div>
+					</div>
+				</p>
+				<p>
+					<div id='current_status'>
+						<div class='current_status head'>
+							Current Status
+						</div>
+						Node Count: 0<br />
+						Class Count: 0<br />
+						Function Count: 0<br />
+						Language: undefined<br />
+						Saved: false
 					</div>
 				</p>
 			</div>

@@ -32,3 +32,13 @@ A:link {
 	padding-left: 20px;
 	font-size: 90%;
 }
+#current_status {
+	font-size: 80%;
+	background-color: #eeeeee;
+	border: 1px solid #cccccc;
+	padding: 5px;
+}
+#current_status .head {
+	font-weight: bold;
+	font-style: italic;
+}
