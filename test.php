@@ -15,11 +15,12 @@ $anotherPHPFN->addOutput( );
 
 $myConnector	= new Connector( $randomPHPFN, Safe( "int" ), 0, $anotherPHPFN, Safe( "int" ), 0 );
 
-$myCompositorClass	= new CompositorClass( Safe( "EncompassingClass" ) );
+$myCompositorClass	= new PHPCompositorClass( Safe( "EncompassingClass" ) );
 $myCompositorClass->addFunction( $randomPHPFN );
 $myCompositorClass->addFunction( $anotherPHPFN );
 $myCompositorClass->addConnector( $myConnector );
 
 echo $myCompositorClass->debugNode();
+echo $myCompositorClass->makeClass();
 
 ?>

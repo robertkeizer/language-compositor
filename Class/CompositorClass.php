@@ -60,6 +60,10 @@ class CompositorClass extends Node{
 		/* Replace the this->_connectoArray with the temporary one built above. */
 		$this->_connectorArray	= $tmpConnectorArray;
 	}
+
+	public function makeClass( ){
+		parent::debugNode();
+	}
 };
 
 ?>
