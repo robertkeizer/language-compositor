@@ -36,12 +36,15 @@ class PHPFunctionNode extends FunctionNode{
 		/* Loop through the this->_inputArray and produce the input args.. */
 		for( $x=0; $x<count( $this->_inputArray ); $x++ ){
 
-			/* */
+			/* Show the variable type if specified.. */
 			if( $this->_inputArray[$x]['inputType'] !== "" ){
 				$returnString .= "{$this->_inputArray[$x]['inputType']} ";
 			}
-
+			
+			/* Show the variable name. Include a $ infront since this is PHP */
 			$returnString .= "\${$this->_inputArray[$x]['inputName']}";
+
+			/* If there is a default set, set it now. */
 			if( isset( $this->_inputArray[$x]['inputDefault'] ) ){
 				$returnString .= " = {$this->_inputArray[$x]['inputDefault']}";
 			}
@@ -51,7 +54,8 @@ class PHPFunctionNode extends FunctionNode{
 				$returnString .= ", ";
 			}
 		}
-			
+		
+		/* Close the function argument list. Append the body, and the end. */
 		$returnString .= " ){ ";
 		$returnString .= $this->_body;
 		$returnString .= "};";
