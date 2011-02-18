@@ -58,7 +58,7 @@ class PHPFunctionNode extends FunctionNode{
 		/* Close the function argument list. Append the body, and the end. */
 		$returnString .= " ){ ";
 		$returnString .= $this->_body;
-		$returnString .= "};";
+		$returnString .= " };";
 		
 		return $returnString;	
 	}
