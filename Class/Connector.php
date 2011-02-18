@@ -10,7 +10,7 @@ class Connector {
 	protected $_endingFunctionOutputType;
 	protected $_endingFunctionOutputPosition;
 	
-	public function __construct( FunctionNode $startingFunction, Safe $startingFunctionOutputType, int $startingFunctionOutputPosition, FunctionNode $endingFunction, Safe $endingFunctionInputType, int $endingFunctionInputPosition ){
+	public function __construct( FunctionNode $startingFunction, Safe $startingFunctionOutputType, $startingFunctionOutputPosition, FunctionNode $endingFunction, Safe $endingFunctionInputType, $endingFunctionInputPosition ){
 		$this->_startingFunction		= $startingFunction;
 		$this->_startingFunctionOutputType	= $startingFunctionOutputType;
 		$this->_startingFunctionOutputPosition	= $startingFunctionOutputPosition;

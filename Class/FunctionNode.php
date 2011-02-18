@@ -1,6 +1,9 @@
 <?php
 
 class FunctionNode extends Node{
+
+	/* Define the node body, since not all nodes have body. */
+	protected $_body;
 	
 	/* Define the class wide inputArray. This is to avoid problems with foreach. */
 	protected $_inputArray = array( );
@@ -113,6 +116,16 @@ class FunctionNode extends Node{
 			array_pop( $this->_outputArray );
 			return;
 		}
+	}
+
+	/* Set the body of the node. */
+	public function setBody( Safe $body ){
+		$this->_body	= $body->toString();
+	}
+
+	/* Get the body of the node. */
+	public function getBody( ){
+		return $this->_body;
 	}
 
 	/* Display a nice output of what the code will be.. */

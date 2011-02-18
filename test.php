@@ -7,6 +7,19 @@ $randomPHPFN->addInput( null, Safe( "y" ), null );
 $randomPHPFN->setBody( Safe( "return (\$x^\$y)*\$x;" ) );
 $randomPHPFN->addOutput( );
 
-echo $randomPHPFN->debugNode( )."\n";
-echo $randomPHPFN->makeFunction( )."\n\n";
+$anotherPHPFN	= new PHPFunctionNode( Safe( "barfoo" ), Safe( "public" ) );
+$anotherPHPFN->addInput( Safe( "int" ), Safe( "a" ), null );
+$anotherPHPFN->addInput( Safe( "int" ), Safe( "b" ), null );
+$anotherPHPFN->setBody( Safe( "return \$a+\$b;" ) );
+$anotherPHPFN->addOutput( );
+
+$myConnector	= new Connector( $randomPHPFN, Safe( "int" ), 0, $anotherPHPFN, Safe( "int" ), 0 );
+
+$myCompositorClass	= new CompositorClass( Safe( "EncompassingClass" ) );
+$myCompositorClass->addFunction( $randomPHPFN );
+$myCompositorClass->addFunction( $anotherPHPFN );
+$myCompositorClass->addConnector( $myConnector );
+
+echo $myCompositorClass->debugNode();
+
 ?>
