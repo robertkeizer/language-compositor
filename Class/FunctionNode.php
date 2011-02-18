@@ -20,10 +20,6 @@ class FunctionNode extends Node{
 	
 	/* Add an input to a given function node. */
 	public function addInput( Safe $inputType = null, Safe $inputName, Safe $inputDefault = null ){
-		/* Allow for a blank inputType. */
-		if( $inputType == null ){
-			$inputType = Safe( "" );
-		}
 
 		/* Loop through the current inputs, make sure none have the exact same inputName. */
 		foreach( $this->_inputArray as $currentInput ){
@@ -32,15 +28,25 @@ class FunctionNode extends Node{
 			}
 		}
 
-		/* Setup the inputArray to be added to this->_inputArray */
-		$tmpInputArray	= array(	'inputType'	=> $inputType->toString(),
-						'inputName'	=> $inputName->toString() );
-		
+		/* Check if the inputType is null or not.. append to the tmpInputArray either way. */
+		if( $inputType !== null ){
+			$inputType = $inputType->toString();
+		}
+
 		/* Check to see if there is a default value for the input. */
 		if( $inputDefault !== null ){
-			$tmpInputArray['inputDefault']	= $inputDefault->toString();
+			$inputDefault	= $inputDefault->toString();
 		}
-			
+
+		/* Setup the inputArray to be added to this->_inputArray */
+		$tmpInputArray	= array( );
+		
+		/* Set the temporary input array.. */
+		$tmpInputArray['inputType']	= $inputType;
+		$tmpInputArray['inputName']	= $inputName->toString();
+		$tmpInputArray['inputDefault']	= $inputDefault;
+
+		/* Append the temporary array to the class wide inputArray */
 		$this->_inputArray[] = $tmpInputArray;
 	}
 

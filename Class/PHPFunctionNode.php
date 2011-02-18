@@ -21,9 +21,22 @@ class PHPFunctionNode extends FunctionNode{
 
 	/* makeFunction should have $'s in input vars..PHP also cant do return type hinting..  */
 	public function makeFunction( ){
-		$returnString	= "function {$this->_title}( ";
+
+		/* Start the returnString */
+		$returnString	= "";
+	
+		/* Check if the type is defined - ie public/private/protected */
+		if( isset( $this->_type ) ){
+			$returnString .= "{$this->_type} ";
+		}
+
+		/* Append the function functionName( */
+		$returnString	.= "function {$this->_title}( ";
+
 		/* Loop through the this->_inputArray and produce the input args.. */
 		for( $x=0; $x<count( $this->_inputArray ); $x++ ){
+
+			/* */
 			if( $this->_inputArray[$x]['inputType'] !== "" ){
 				$returnString .= "{$this->_inputArray[$x]['inputType']} ";
 			}
