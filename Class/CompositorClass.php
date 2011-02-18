@@ -89,6 +89,35 @@ class CompositorClass extends Node{
 		if( in_array( $temporaryVariableArray, $this->_variableArray ) ){
 			throw new Exception( "That variable is already defined in this array." );
 		}
+
+		/* Append the temporary variable array to the class wide one. */
+		$this->_variableArray[]	= $temporaryVariableArray;
+	}
+
+	/* Allow the deletion of class wide variables */
+	public function delVariable( Safe $varName ){
+		/* Define a temporary boolean variable to see if we found it and removed from our temporary array. */
+		$found	= false;
+		
+		/* Define a temporary array to be used to replace this->_variableArray.. */
+		$temporaryVariableArray	= array( );
+		
+		/* Loop through each this->_variableArray and see if ['varName'] matches.. if it doesn't append it to temporaryVariableArray. */
+		foreach( $this->_variableArray as $tmpVariableArray ){
+			if( $tmpVariableArray['varName'] !== $varName->toString() ){
+				$temporaryVariableArray[]	= $tmpVariableArray;
+			}else{
+				$found = true;
+			}
+		}
+		
+		/* If not found, throw an error. */
+		if( !$found ){
+			throw new Exception( "Could not delete variable with name '{$varName->toString()}' since it doesn't exist in the class." );
+		}
+
+		/* Replace this->_variableArray with the temporaryVariableArray created above. */
+		$this->_variableArray	= $temporaryVariableArray;
 	}
 
 	public function makeClass( ){

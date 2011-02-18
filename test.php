@@ -1,26 +1,28 @@
 <?php
 include './config.php';
 
-$randomPHPFN	= new PHPFunctionNode( Safe( "foobar" ), Safe( "public" ) );
-$randomPHPFN->addInput( Safe( "int" ), Safe( "x" ), null );
-$randomPHPFN->addInput( null, Safe( "y" ), null );
-$randomPHPFN->setBody( Safe( "return (\$x^\$y)*\$x;" ) );
-$randomPHPFN->addOutput( );
+/* Create a new instance of PHPCompositorClass, with the title of Person. Define a few variables. */
+$phpPersonClass	= new PHPCompositorClass( Safe( "Person" ) );
+$phpPersonClass->addVariable( Safe( "protected" ), Safe( "_firstName" ), null );
+$phpPersonClass->addVariable( Safe( "protected" ), Safe( "_lastName" ), null );
 
-$anotherPHPFN	= new PHPFunctionNode( Safe( "barfoo" ), Safe( "public" ) );
-$anotherPHPFN->addInput( Safe( "int" ), Safe( "a" ), null );
-$anotherPHPFN->addInput( Safe( "int" ), Safe( "b" ), null );
-$anotherPHPFN->setBody( Safe( "return \$a+\$b;" ) );
-$anotherPHPFN->addOutput( );
+/* Create the constructor function.. */
+$phpPersonConstructorFN	= new PHPFunctionNode( Safe( "__constructor" ), Safe( "public" ) );
+$phpPersonConstructorFN->addInput( null, Safe( "firstName" ), null );
+$phpPersonConstructorFN->addInput( null, Safe( "lastName" ), null );
+$phpPersonConstructorFN->setBody( Safe( "\$this->_firstName = \$firstName; \$this->_lastName = \$lastName;" ) );
 
-$myConnector	= new Connector( $randomPHPFN, Safe( "int" ), 0, $anotherPHPFN, Safe( "int" ), 0 );
+/* Create a 'hello' function.. */
+$phpPersonHelloFN	= new PHPFunctionNode( Safe( "hello" ), Safe( "public" ) );
+$phpPersonHelloFN->addOutput( );
+$phpPersonHelloFN->setBody( Safe( "echo \"Hello {\$this->_firstName} {\$this->_lastName}\";" ) );
 
-$myCompositorClass	= new PHPCompositorClass( Safe( "EncompassingClass" ) );
-$myCompositorClass->addFunction( $randomPHPFN );
-$myCompositorClass->addFunction( $anotherPHPFN );
-$myCompositorClass->addConnector( $myConnector );
+/* Add both the functions to the class. */
+$phpPersonClass->addFunction( $phpPersonConstructorFN );
+$phpPersonClass->addFunction( $phpPersonHelloFN );
 
-echo $myCompositorClass->debugNode();
-echo $myCompositorClass->makeClass();
+/* Debug and display the class. */
 
+echo $phpPersonClass->debugNode();
+echo $phpPersonClass->makeClass();
 ?>
