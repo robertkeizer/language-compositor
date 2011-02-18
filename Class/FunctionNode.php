@@ -13,6 +13,9 @@ class FunctionNode extends Node{
 	/* Define the type of function.. ie public/private/protected.. */
 	protected $_type;
 
+	/* Define an internal hash variable.. used in CompositorClass stuff as a unique identifier. */
+	protected $_hash;
+
 	/* Overload the construct, to allow for type specification. */
 	public function __construct( Safe $title, Safe $type = null ){
 		if( $type !== null ){
@@ -51,10 +54,15 @@ class FunctionNode extends Node{
 
 		/* Append the temporary array to the class wide inputArray */
 		$this->_inputArray[] = $tmpInputArray;
+
+		/* Update the hash */
+		$this->updateHash( );
 	}
 
 	/* Loop through and look for the inputName, if it is found, don't add it. */
 	public function delInput( Safe $inputName ){
+
+		/* This function is kind of ugly because there is no simple in_array, since its actually a multidimensional array. */
 
 		/* Create a temporary array that will replace this->_inputArray. Also create tmp var to check if removed. */
 		$tmpClassInputArray	= array();
@@ -68,11 +76,16 @@ class FunctionNode extends Node{
 			}
 		}
 		
+		/* If there wasn't one removed throw an error. */
 		if( !$removed ){
 			throw new Exception( "Could not find input with the input name of '{$inputName->toString()}'" );
 		}
 
+		/* Replace the this->_inputArray with the temporary one build just above. */
 		$this->_inputArray	= $tmpClassInputArray;
+
+		/* Update the hash */
+		$this->updateHash();
 	}
 
 	/* Add an output. */
@@ -126,6 +139,18 @@ class FunctionNode extends Node{
 	/* Get the body of the node. */
 	public function getBody( ){
 		return $this->_body;
+	}
+
+	/* Update the internal function hash identifier */
+	private function updateHash( ){
+		$runningHash	= "";
+		foreach( $this->_inputArray as $inputArray ){
+			foreach( $inputArray as $var => $value ){
+				$runningHash .= md5( $value );
+			}
+		}
+
+		$this->_hash	= md5( $runningHash );
 	}
 
 	/* Display a nice output of what the code will be.. */
