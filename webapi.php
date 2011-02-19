@@ -111,9 +111,29 @@ switch( $function->toString() ){
 		echo 'okay';
 		break;
 	case "generate_code":
-		foreach( $_SESSION['nodes'] as $node ){
-			echo $node->makeNode( );
+
+		if( !isset( $_SESSION['language'] ) ){
+			echo "Language must be specified first.";
+			exit;
 		}
+
+		/* Loop through to make sure the language is set correctly.. and all the blocks match */
+		$bad	= false;
+		foreach( $_SESSION['nodes'] as $node ){
+			if( $node->getLang( ) !== $_SESSION['language'] ){
+				$bad = true;
+				echo "One or more of the blocks on the screen are not the same langauge. ( {$node->getTitle()} has language of '{$node->getLang()}' instead of '{$_SESSION['language']}' ).";
+				exit;
+			}
+		}
+
+		/* If the language specification is correct, show all the nodes. */
+		if( !$bad ){
+			foreach( $_SESSION['nodes'] as $node ){
+				echo $node->makeNode( );
+			}
+		}
+
 		break;
 	case "debugNodes":
 		echo var_dump( $_SESSION['nodes'] );

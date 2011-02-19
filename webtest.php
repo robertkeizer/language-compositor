@@ -121,9 +121,11 @@ include './config.php';
 						break;
 					case "generate_code":
 						$.get( 'webapi.php?function=generate_code', function( data ){
-							$('#canvas').children( 'pre' ).html( data );
+							$('#canvas').html( "<pre>" + data + "</pre>" );
 						} );
 						break;
+					case "reload":
+						window.location.reload();
 					default:
 						$.prompt( 'Unkown function passed' );
 				}
@@ -166,6 +168,7 @@ include './config.php';
 							<div>
 								<div class='option' onclick="api('specify_language');">Specify programming langauge</div>
 								<div class='option' onclick="api('generate_code');">Generate code</div>
+								<div class='option' onclick="api('reload');">Back to editor</div>
 							</div>
 						</div>
 					</div>

@@ -45,7 +45,7 @@ class PHPFunctionNode extends FunctionNode{
 			$returnString .= "\${$this->_inputArray[$x]['inputName']}";
 
 			/* If there is a default set, set it now. */
-			if( isset( $this->_inputArray[$x]['inputDefault'] ) ){
+			if( isset( $this->_inputArray[$x]['inputDefault'] ) && $this->_inputArray[$x]['inputDefault'] !== "" ){
 				$returnString .= " = {$this->_inputArray[$x]['inputDefault']}";
 			}
 			
@@ -61,6 +61,10 @@ class PHPFunctionNode extends FunctionNode{
 		$returnString .= " };\n";
 		
 		return $returnString;	
+	}
+
+	public function getLang( ){
+		return "PHP";
 	}
 };
 

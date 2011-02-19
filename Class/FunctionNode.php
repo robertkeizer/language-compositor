@@ -4,15 +4,12 @@ class FunctionNode extends Node{
 
 	/* Define the node body, since not all nodes have body. */
 	protected $_body;
-	
 	/* Define the class wide inputArray. This is to avoid problems with foreach. */
 	protected $_inputArray = array( );
 	/* Define the class wide outputArray. This is to avoid problems with foreach. */
 	protected $_outputArray = array( );
-
 	/* Define the type of function.. ie public/private/protected.. */
 	protected $_type;
-
 	/* Define an internal hash variable.. used in CompositorClass stuff as a unique identifier. */
 	protected $_hash;
 
@@ -166,6 +163,9 @@ class FunctionNode extends Node{
 	public function getOutputs( ){
 		return $this->_outputArray;
 	}
+
+	/* This should be filled in in the children classes */
+	public function getLang( ){ }
 
 	/* Display a nice output of what the code will be.. */
 	public function makeNode( ){

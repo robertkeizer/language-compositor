@@ -1,7 +1,7 @@
 <?php
 
 class PHPCompositorClass extends CompositorClass {
-	
+
 	public function makeNode( ){
 		$returnString = "class {$this->_title}{\n";
 
@@ -24,6 +24,9 @@ class PHPCompositorClass extends CompositorClass {
 		return $returnString;
 	}
 
+	public function getLang( ){
+		return "PHP";
+	}
 };
 
 ?>
