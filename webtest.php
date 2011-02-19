@@ -39,6 +39,26 @@ include './config.php';
 				$('#current_status').corner( );
 			} );
 
+			function createNewNode( v, m, f ){
+				$.get( 'webapi.php?function=addnode&nodetype=' + f.nodetype + '&nodetitle=' + f.title, function( data ){
+					if( data !== 'okay' ){
+						$.prompt( data );
+					}else{
+						window.location.reload();
+					}
+				} );
+			}
+
+			function specifyLanguage( v, m, f ){
+				$.get( 'webapi.php?function=setlanguage&language=' + f.language, function( data ){
+					if( data !== 'okay' ){
+						$.prompt( data );
+					}else{
+						window.location.reload();
+					}
+				} );
+			}
+
 			function api( fnc, args ){
 				switch( fnc ){
 					case "reset":
@@ -51,16 +71,11 @@ include './config.php';
 						} );
 						break;
 					case "newnode":
-						switch( args ){
-							case "class":
-								$.prompt( 'New class node ..' );
-								break;
-							case "function":
-								$.prompt( 'New function node ..' );
-								break;
-							default:
-								$.prompt( 'Unknown argument passed' );
-						}
+						var tmpString		= '<table>'
+									+ '<tr><td>Title/Name</td><td><input name="title"></td></tr>'
+									+ '<tr><td>Node Type</td><td><input name="nodetype" value="' + args + '"></td></tr>'
+									+ '</table>';
+						$.prompt( tmpString, { callback: createNewNode } );
 						break;
 					case "delnode":
 						$.prompt( 'Not implemented yet.' );
@@ -72,7 +87,8 @@ include './config.php';
 						$.prompt( 'Load a diagram' );
 						break;
 					case "specify_language":
-						$.prompt( 'Specify a language..' );
+						var tmpString = "Language <input name='language' value='<?php echo $_SESSION['language']; ?>'>";
+						$.prompt( tmpString, { callback: specifyLanguage } );
 						break;
 					case "generate_code":
 						$.prompt( 'Generate code..' );
@@ -95,8 +111,10 @@ include './config.php';
 						<div>
 							<div class='accordion_head'>Nodes</div>
 							<div>
-								<span class='option' onclick="api('newnode', 'class');">Add a Class Node</span><br />
-								<span class='option' onclick="api('newnode', 'function');">Add a Function Node</span><br />
+								<?php // The if statement is temporary ?>
+								<?php foreach( $validNodeTypes as $nodeType ){ if( preg_match( "/[^ ]FunctionNode$/", $nodeType ) == 0 ){ continue; }; ?>
+								<span class='option' onclick="api('newnode', '<?php echo $nodeType; ?>');">Add a <?php echo $nodeType; ?></span><br />
+								<?php } ?>
 							</div>
 						</div>
 						<div>
@@ -129,7 +147,7 @@ include './config.php';
 							Current Status
 						</div>
 						Node Count: <?php echo count($_SESSION['nodes']); ?><br />
-						Language: undefined<br />
+						Language: <?php echo $_SESSION['language']; ?><br />
 						Saved: false
 					</div>
 				</p>

@@ -5,6 +5,16 @@ include './config.php';
 $function	= Safe( @$_REQUEST['function'] );
 
 switch( $function->toString() ){
+	case "setlanguage":
+		$language		= Safe( @$_REQUEST['language'] );
+		if( $language->isNull() || $language->toString() == null ){
+			echo "You need to specify a language";
+			exit;
+		}
+
+		$_SESSION['language']	= $language->toString();
+		echo "okay";
+		break;
 	case "reset":
 		session_destroy( );
 		echo "okay";
@@ -18,7 +28,7 @@ switch( $function->toString() ){
 		}
 		/* Verify nodetype is valid. */
 		if( !in_array( $nodeType->toString(), $validNodeTypes ) ){
-			echo "Invalid node type specified.";
+			echo "Invalid node type specified. ( {$nodeType->toString()} ).";
 			exit;
 		}
 		/* Verify nodetitle exists. */
