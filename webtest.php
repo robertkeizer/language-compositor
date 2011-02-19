@@ -41,8 +41,8 @@ include './config.php';
 				// Round the current status block
 				$('#current_status').corner( );
 				
-				// Make sure that nodes are draggable.
-				$('.node').draggable( );
+				// Make sure that nodes are draggable, also corner it.
+				$('.node').draggable({ containment: "#canvas" }).corner( );
 			} );
 
 			function createNewNode( v, m, f ){
@@ -168,7 +168,9 @@ include './config.php';
 					<?php
 					foreach( $_SESSION['nodes'] as $node ){
 						echo "<div class='node'>";
-						echo "<b>{$node->getTitle()}</b><br />\n";
+						echo "<b>{$node->getTitle()}</b><br /><span style='font-size: 60%; font-style: italics;'>".get_class( $node )."</span><br />\n";
+						echo "<hr style='width: 100%; border-color: #cccccc;' />";
+						echo "<span style='font-size: 70%;'>";
 						if( method_exists( $node, "getInputs" ) ){
 							echo "Inputs:<br />\n";
 							foreach( $node->getInputs( ) as $inputArray ){
@@ -181,6 +183,7 @@ include './config.php';
 								echo "{$outputArray['outputName']}<br />\n";
 							}
 						}
+						echo "</span>";
 						echo "</div>";
 					}
 					?>
