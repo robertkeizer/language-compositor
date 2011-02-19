@@ -20,6 +20,13 @@ class Safe{
 		return $this->_unsafe;
 	}
 
+	public function isNull( ){
+		if( $this->_unsafe == null ){
+			return true;
+		}else{
+			return false;
+		}
+	}
 };
 
 ?>

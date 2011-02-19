@@ -22,4 +22,18 @@ function Safe( $unsafe ){
 	return new Safe( $unsafe );
 };
 
+/* Start the web sessions */
+session_start();
+
+/* Define the _SESSION['nodes'] array */
+if( !isset( $_SESSION['nodes'] ) ){
+	$_SESSION['nodes'] = array( );
+}
+
+/* Define valid node types.. not dynamically defined yet. */
+$validNodeTypes	= array(	'CompositorClass',
+				'Node',
+				'FunctionNode',
+				'PHPFunctionNode',
+				'PHPCompositorClass' );
 ?>
