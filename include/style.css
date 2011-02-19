@@ -49,6 +49,13 @@ A:link {
 	padding: 5px;
 }
 
+.node {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #cccccc;
+	background-color: #eeeeee;
+}
+
 /*
 ------------------------------
 	Impromptu's

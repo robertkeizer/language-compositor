@@ -9,6 +9,9 @@ include './config.php';
 		<link rel='stylesheet' href='include/style.css'>
 		<script type='text/javascript' src='include/jquery.js'></script>
 		<script type='text/javascript' src='include/jquery-ui.js'></script>
+		<script type='text/javascript' src='include/jquery-widget.js'></script>
+		<script type='text/javascript' src='include/jquery-mouse.js'></script>
+		<script type='text/javascript' src='include/jquery-draggable.js'></script>
 		<script type='text/javascript' src='include/jquery-corner.js'></script>
 		<script type='text/javascript' src='include/jquery-impromptu.js'></script>
 		<script type='text/javascript'>
@@ -37,6 +40,9 @@ include './config.php';
 
 				// Round the current status block
 				$('#current_status').corner( );
+				
+				// Make sure that nodes are draggable.
+				$('.node').draggable( );
 			} );
 
 			function createNewNode( v, m, f ){
@@ -94,7 +100,9 @@ include './config.php';
 						$.prompt( tmpString, { callback: specifyLanguage } );
 						break;
 					case "generate_code":
-						$.prompt( 'Generate code..' );
+						$.get( 'webapi.php?function=generate_code', function( data ){
+							$('#canvas').children( 'pre' ).html( data );
+						} );
 						break;
 					default:
 						$.prompt( 'Unkown function passed' );
@@ -149,7 +157,6 @@ include './config.php';
 						</div>
 						Node Count: <?php echo count($_SESSION['nodes']); ?><br />
 						Language: <?php echo $_SESSION['language']; ?><br />
-						Saved: false
 					</div>
 				</p>
 			</div>
@@ -158,7 +165,25 @@ include './config.php';
 					You do not appear to have javascript enabled. Please enable it to utilize language-compositor.
 				</div>
 				<div id='canvas'>
-					<pre><?php var_dump( $_SESSION['nodes'] ); ?></pre>
+					<?php
+					foreach( $_SESSION['nodes'] as $node ){
+						echo "<div class='node'>";
+						echo "<b>{$node->getTitle()}</b><br />\n";
+						if( method_exists( $node, "getInputs" ) ){
+							echo "Inputs:<br />\n";
+							foreach( $node->getInputs( ) as $inputArray ){
+								echo "{$inputArray['inputName']}<br />\n";
+							}
+						}
+						if( method_exists( $node, "getOutputs" ) ){
+							echo "Outputs:\n";
+							foreach( $node->getOutputs( ) as $outputArray ){
+								echo "{$outputArray['outputName']}<br />\n";
+							}
+						}
+						echo "</div>";
+					}
+					?>
 				</div>
 			</div>
 		</div>

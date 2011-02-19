@@ -74,6 +74,11 @@ switch( $function->toString() ){
 		$_SESSION['nodes']	= $tmpNodeArray;
 		echo "okay";
 		break;
+	case "generate_code":
+		foreach( $_SESSION['nodes'] as $node ){
+			echo $node->makeNode( );
+		}
+		break;
 	case "debugNodes":
 		echo var_dump( $_SESSION['nodes'] );
 		break;

@@ -157,8 +157,18 @@ class FunctionNode extends Node{
 		return $this->_hash;
 	}
 
+	/* Define a function so that other classes can get access to the info.. */
+	public function getInputs( ){
+		return $this->_inputArray;
+	}
+
+	/* Dito for above, just with outputs */
+	public function getOutputs( ){
+		return $this->_outputArray;
+	}
+
 	/* Display a nice output of what the code will be.. */
-	public function makeFunction( ){
+	public function makeNode( ){
 		/* This is the abstract function.. although not actually abstract. Do not do anything language specific. */
 		return parent::debugNode();
 	}

@@ -2,7 +2,7 @@
 
 class PHPCompositorClass extends CompositorClass {
 	
-	public function makeClass( ){
+	public function makeNode( ){
 		$returnString = "class {$this->_title}{\n";
 
 		/* Run through all the variables defined.. */

@@ -12,6 +12,8 @@ abstract class Node{
 		return $this->_title;
 	}
 
+	public function makeNode( ){ }
+
 	public function debugNode( ){
 		var_dump( $this );
 	}

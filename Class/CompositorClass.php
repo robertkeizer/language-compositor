@@ -120,7 +120,7 @@ class CompositorClass extends Node{
 		$this->_variableArray	= $temporaryVariableArray;
 	}
 
-	public function makeClass( ){
+	public function makeNode( ){
 		parent::debugNode();
 	}
 };

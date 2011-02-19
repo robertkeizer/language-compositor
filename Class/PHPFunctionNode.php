@@ -19,8 +19,8 @@ class PHPFunctionNode extends FunctionNode{
 		parent::addOutput( $outputType, null );
 	}
 
-	/* makeFunction should have $'s in input vars..PHP also cant do return type hinting..  */
-	public function makeFunction( ){
+	/* makeNode should have $'s in input vars..PHP also cant do return type hinting..  */
+	public function makeNode( ){
 
 		/* Start the returnString */
 		$returnString	= "";

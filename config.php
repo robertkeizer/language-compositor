@@ -30,6 +30,11 @@ if( !isset( $_SESSION['nodes'] ) ){
 	$_SESSION['nodes'] = array( );
 }
 
+/* Define the language as 'undefined' if not already defined */
+if( !isset( $_SESSION['language'] ) ){
+	$_SESSION['language'] = 'undefined';
+}
+
 /* Define valid node types.. not dynamically defined yet. */
 $validNodeTypes	= array(	'CompositorClass',
 				'Node',
