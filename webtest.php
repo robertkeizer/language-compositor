@@ -188,17 +188,28 @@ include './config.php';
 					<?php
 					foreach( $_SESSION['nodes'] as $node ){
 						echo "<div class='node'>";
-						echo "<b>{$node->getTitle()}</b><br /><span style='font-size: 60%; font-style: italics;'>".get_class( $node )."</span><br />\n";
+						echo "<b>{$node->getTitle()} </b><span style='font-size: 60%;'><a href='#' onclick='editnode( \"{$node->getTitle()}\" )'>edit</a></span><br /><span style='font-size: 60%; font-style: italics;'>".get_class( $node )."</span><br />\n";
+
+
 						echo "<hr style='width: 100%; border-color: #cccccc;' />";
 						echo "<span style='font-size: 70%;'>";
 						if( method_exists( $node, "getInputs" ) ){
 							echo "<a href='#' onclick='addInputDiag( \"{$node->getTitle()}\" );'>Add Input</a><br />\n";
+							/* Loop each input */
 							foreach( $node->getInputs( ) as $inputArray ){
-								echo "{$inputArray['inputName']}<br />\n";
+								if( $inputArray['inputType'] !== null ){
+									echo "<i>{$inputArray['inputType']}</i> ";
+								}
+								echo "{$inputArray['inputName']}";
+								if( $inputArray['inputDefault'] !== "" && $inputArray !== null ){
+									echo " = {$inputArray['inputDefault']}";
+								}
+								echo "<br />\n";
 							}
+							echo "<hr style='width: 10)%; border-color: #cccccc;' />\n";
 						}
 						if( method_exists( $node, "getOutputs" ) ){
-							echo "Outputs:\n";
+							echo "<a href='#' onclick='addOutputDiag( \"{$node->getTitle()}\" );'>Add Output</a><br />\n";
 							foreach( $node->getOutputs( ) as $outputArray ){
 								echo "{$outputArray['outputName']}<br />\n";
 							}
