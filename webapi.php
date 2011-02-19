@@ -74,6 +74,42 @@ switch( $function->toString() ){
 		$_SESSION['nodes']	= $tmpNodeArray;
 		echo "okay";
 		break;
+	case "addinput":
+		/* Make sure all the required fields are set.. namely nodename and inputname */
+		$nodename	= Safe( @$_REQUEST['nodename'] );
+		$inputname	= Safe( @$_REQUEST['inputname'] );
+
+		/* Exit if either is null. */
+		if( $nodename->isNull() || $nodename->toString() == null || $inputname->isNull() || $inputname->toString() == null ){
+			echo 'nodename and inputname must both be specified using addinput. ('.$nodename->toString().') ('.$inputname->toString().')';
+			exit;
+		}
+
+		$inputtype	= Safe( @$_REQUEST['inputtype'] );
+		$inputdefault	= Safe( @$_REQUEST['inputdefault'] );
+
+		$found = false;
+
+		/* Go through each $_SESSION['nodes'] to see if the title matches, if so add the input. */
+		foreach( $_SESSION['nodes'] as $node ){
+			if( $node->getTitle() == $nodename->toString() ){
+				try{
+					$node->addInput( $inputtype, $inputname, $inputdefault );
+				}catch( Exception $e ){
+					echo "Fatal error: {$e->getMessage()}";
+					exit;
+				}
+				$found = true;
+			}
+		}
+
+		if( !$found ){
+			echo 'No node with that name.';
+			exit;
+		}
+
+		echo 'okay';
+		break;
 	case "generate_code":
 		foreach( $_SESSION['nodes'] as $node ){
 			echo $node->makeNode( );

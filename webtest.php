@@ -65,6 +65,26 @@ include './config.php';
 				} );
 			}
 
+			function addInput( v, m, f ){
+				$.get( 'webapi.php?function=addinput&nodename=' + f.nodename + '&inputtype=' + f.inputtype + '&inputname=' + f.inputname + '&inputdefault=' + f.inputdefault, function( data ){
+					if( data !== 'okay' ){
+						$.prompt( data );
+					}else{
+						window.location.reload( );
+					}
+				} );
+			}
+
+			function addInputDiag( nodename ){
+				var tmpString 	= '<table>'
+						+ "<tr><td>Input Type</td><td><input type='text' name='inputtype'></td></tr>"
+						+ "<tr><td>Input Name</td><td><input type='text' name='inputname'></td></tr>"
+						+ "<tr><td>Input Default</td><td><input type='text' name='inputdefault'></td></tr>"
+						+ '</table>'
+						+ '<input type="hidden" name="nodename" value="' + nodename + '">';
+				$.prompt( tmpString, { callback: addInput } );
+			}
+
 			function api( fnc, args ){
 				switch( fnc ){
 					case "reset":
@@ -172,7 +192,7 @@ include './config.php';
 						echo "<hr style='width: 100%; border-color: #cccccc;' />";
 						echo "<span style='font-size: 70%;'>";
 						if( method_exists( $node, "getInputs" ) ){
-							echo "Inputs:<br />\n";
+							echo "<a href='#' onclick='addInputDiag( \"{$node->getTitle()}\" );'>Add Input</a><br />\n";
 							foreach( $node->getInputs( ) as $inputArray ){
 								echo "{$inputArray['inputName']}<br />\n";
 							}
