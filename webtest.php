@@ -70,6 +70,9 @@ include './config.php';
 							}
 						} );
 						break;
+					case "connector":
+						$.prompt( 'Add a connector..' );
+						break;
 					case "newnode":
 						var tmpString		= '<table>'
 									+ '<tr><td>Title/Name</td><td><input name="title"></td></tr>'
@@ -111,8 +114,7 @@ include './config.php';
 						<div>
 							<div class='accordion_head'>Nodes</div>
 							<div>
-								<?php // The if statement is temporary ?>
-								<?php foreach( $validNodeTypes as $nodeType ){ if( preg_match( "/[^ ]FunctionNode$/", $nodeType ) == 0 ){ continue; }; ?>
+								<?php foreach( $validNodeTypes as $nodeType ){ ?>
 								<span class='option' onclick="api('newnode', '<?php echo $nodeType; ?>');">Add a <?php echo $nodeType; ?></span><br />
 								<?php } ?>
 							</div>
@@ -120,8 +122,7 @@ include './config.php';
 						<div>
 							<div class='accordion_head'>Connectors</div>
 							<div>
-								<span class='option'>Add a connector</span><br />
-								<span class='option'>Remove all connectors</span>
+								<span class='option' onclick="api('connector');">Add a connector</span><br />
 							</div>
 						</div>
 						<div>
