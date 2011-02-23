@@ -20,8 +20,8 @@ class Safe{
 		return $this->_unsafe;
 	}
 
-	public function isNull( ){
-		if( $this->_unsafe == null ){
+	public function isEmpty( ){
+		if( $this->_unsafe == null || $this->_unsafe == "" ){
 			return true;
 		}else{
 			return false;
